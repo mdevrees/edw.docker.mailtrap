@@ -1,9 +1,9 @@
-FROM debian:stable-slim
+FROM php:8.1-apache-bullseye
 
 LABEL maintainer.original="David Batranu <david.batranu@eaudeweb.ro>"
-LABEL maintainer.current="ipunkt Business Solutions <info@ipunkt.biz>"
+LABEL maintainer.current="Mycha de Vrees <m.devrees@gmail.com>"
 
-ENV ROUNDCUBE_VERSION="1.3.1"
+ENV ROUNDCUBE_VERSION="1.6.1"
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV MT_USER mailtrap
@@ -14,17 +14,20 @@ ENV MT_MESSAGE_LIMIT 10240000
 RUN apt-get update && apt-get install -q -y \
     postfix \
     dovecot-imapd \
-    sqlite \
-    php \
-    php-mbstring \
-    php-sqlite3 \
-    php-pear \
+    sqlite3 \
     rsyslog \
     wget \
+    libonig-dev \
+    libicu-dev \
+    nano \
     && \
     a2ensite 000-default && \
     a2enmod expires && \
     a2enmod headers
+
+# RUN docker-php-ext-install -j$(nproc) sqlite3
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
 
 RUN pear channel-update pear.php.net && \
     pear install mail_mime mail_mimedecode net_smtp net_idna2-beta Auth_SASL Horde_ManageSieve crypt_gpg
@@ -51,5 +54,7 @@ COPY docker-entrypoint.sh /var/local/
 RUN chmod 777 /var/local/docker-entrypoint.sh
 
 EXPOSE 25 80
+
+# RUN sed -i 's/Listen 80/Listen 8085/' /etc/apache2/ports.conf
 
 ENTRYPOINT ["/var/local/docker-entrypoint.sh"]

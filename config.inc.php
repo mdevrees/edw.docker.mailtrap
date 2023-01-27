@@ -1,19 +1,19 @@
 <?php
-$config = array();
+$config = [];
 $config['db_dsnw'] = 'sqlite:////var/www/db/sqlite.db';
 $config['default_host'] = 'localhost';
-$config['smtp_server'] = 'localhost';
-$config['smtp_port'] = 25;
+$config['smtp_host'] = 'localhost:25';
+// $config['smtp_port'] = 25;
 $config['smtp_user'] = '';
 $config['smtp_pass'] = '';
 $config['support_url'] = '';
-$config['product_name'] = 'Roundcube MailTrap';
+$config['product_name'] = 'X-Com Roundcube MailTrap';
 $config['des_key'] = '###DES_KEY###';
 $config['plugins'] = array(
     'archive',
     'zipdownload',
 );
-$config['skin'] = 'larry';
+$config['skin'] = 'elastic';
 $config['disabled_actions'] = array('addressbook.index','mail.compose','mail.reply','mail.reply-all','mail.forward');
 
 // store draft message is this mailbox
