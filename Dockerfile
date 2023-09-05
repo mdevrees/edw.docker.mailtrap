@@ -3,7 +3,7 @@ FROM php:8.1-apache-bullseye
 LABEL maintainer.original="David Batranu <david.batranu@eaudeweb.ro>"
 LABEL maintainer.current="Mycha de Vrees <m.devrees@gmail.com>"
 
-ENV ROUNDCUBE_VERSION="1.6.1"
+ENV ROUNDCUBE_VERSION="1.6.2"
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV MT_USER mailtrap
